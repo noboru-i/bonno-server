@@ -12,3 +12,7 @@ console.log('http server listening on %d', port);
 
 app.use(express.static(__dirname + '/public/'));
 ws_start(server);
+
+const Tweet = require('./models/tweet.js');
+console.log(Tweet);
+new Tweet().start_stream();

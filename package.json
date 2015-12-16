@@ -19,6 +19,7 @@
   "homepage": "https://github.com/noboru-i/bonno-server#readme",
   "dependencies": {
     "express": "^4.4.5",
+    "twitter": "^1.2.5",
     "ws": "0.4.x"
   },
   "engines": {
