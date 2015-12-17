@@ -2,6 +2,8 @@ const http = require('http');
 const express = require('express');
 const ws_start = require('./controllers/ws').ws_start;
 
+require('dotenv').load();
+
 const app = express();
 const port = process.env.PORT || 5000;
 
