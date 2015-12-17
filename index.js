@@ -6,7 +6,6 @@ const app = express();
 const port = process.env.PORT || 5000;
 
 var server = http.createServer(app);
-server.listen(port);
 
 console.log('http server listening on %d', port);
 
@@ -15,4 +14,6 @@ ws_start(server);
 
 const Tweet = require('./models/tweet.js');
 console.log(Tweet);
-new Tweet().start_stream();
+// new Tweet().start_stream();
+
+server.listen(port);
