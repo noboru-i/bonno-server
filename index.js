@@ -8,14 +8,16 @@ const app = express();
 const port = process.env.PORT || 5000;
 
 var server = http.createServer(app);
+const io = require('socket.io')(server);
+const redis = require('socket.io-redis');
+io.adapter(redis({ host: 'localhost', port: 6379 }));
 
 console.log('http server listening on %d', port);
 
 app.use(express.static(__dirname + '/public/'));
-ws_start(server);
+ws_start(io);
 
 const Tweet = require('./models/tweet.js');
-console.log(Tweet);
-// new Tweet().start_stream();
+// new Tweet(io).start_stream();
 
 server.listen(port);

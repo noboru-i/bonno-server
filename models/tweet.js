@@ -4,7 +4,8 @@ var Twitter = require('twitter');
 
 class Tweet {
 
-  constructor() {
+  constructor(io) {
+    this.io = io;
     this.client = new Twitter({
       consumer_key: process.env.CONSUMER_KEY,
       consumer_secret: process.env.CONSUMER_SECRET,
@@ -17,6 +18,8 @@ class Tweet {
     this.client.stream('statuses/filter', {track: 'javascript'}, function(stream) {
       stream.on('data', function(tweet) {
         console.log(tweet.text);
+        console.log(this.io);
+        this.io.emit('msg', JSON.stringify(tweet.text));
       });
 
       stream.on('error', function(error) {
