@@ -19,7 +19,7 @@ class Tweet {
 
     this.client.stream('statuses/filter', {track: 'javascript'}, function(stream) {
       stream.on('data', function(tweet) {
-        io.emit('msg', JSON.stringify(tweet.text));
+        io.emit('add_tweet', JSON.stringify(tweet.text));
       });
 
       stream.on('error', function(error) {
