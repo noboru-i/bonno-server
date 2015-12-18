@@ -7,8 +7,6 @@ if (!process.env.PORT) {
   require('dotenv').load();
 }
 
-console.log(redis_config);
-
 const app = express();
 const port = process.env.PORT || 5000;
 
