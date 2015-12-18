@@ -3,7 +3,9 @@ const express = require('express');
 const ws_start = require('./controllers/ws').ws_start;
 const redis_config = require('./config/redis.js').redis_config;
 
-require('dotenv').load();
+if (!process.env.PORT) {
+  require('dotenv').load();
+}
 
 const app = express();
 const port = process.env.PORT || 5000;
