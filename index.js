@@ -1,3 +1,4 @@
+require('newrelic');
 const http = require('http');
 const express = require('express');
 const ws_start = require('./controllers/ws').ws_start;
