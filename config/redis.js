@@ -13,9 +13,9 @@ function get_config() {
 function parse_rediscloud_url(rediscloud_url) {
   const url_object = url.parse(rediscloud_url);
   return {
-    host: url_object['host'],
-    port: url_object['port'],
-    password: url_object['auth'].split(':')[1]
+    host: url_object.hostname,
+    port: url_object.port,
+    password: url_object.auth.split(':')[1]
   };
 }
 
