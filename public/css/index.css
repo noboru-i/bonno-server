@@ -18,7 +18,7 @@ body {
 }
 .container__body {
   flex: 1;
-  min-height: 80vh;
+  min-height: 60vh;
 }
 
 .content {
