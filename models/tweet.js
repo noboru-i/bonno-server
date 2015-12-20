@@ -20,6 +20,7 @@ class Tweet {
 
     this.client.stream('statuses/filter', {track: 'javascript'}, function(stream) {
       stream.on('data', function(tweet) {
+        console.log('received: ' + tweet.id_str);
         if (tweet.retweeted_status) {
           console.log('ignore retweet');
           return;
@@ -30,14 +31,13 @@ class Tweet {
             throw error;
           }
 
-          console.log('on data requested');
+          console.log('success statuses/oembed');
           const send_data = {
             id: id_str,
             html: tweet.html
           };
           io.emit('add_tweet', JSON.stringify(send_data));
         });
-        console.log('on data requested');
       });
 
       stream.on('error', function(error) {
