@@ -30,3 +30,8 @@ const Tweet = require('./models/tweet.js');
 new Tweet(io).start_stream();
 
 server.listen(port);
+
+// TODO dummy gedatsu
+setInterval(function(){
+  io.emit('gedatsu', JSON.stringify({}));
+}, 5000);
