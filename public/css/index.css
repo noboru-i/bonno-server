@@ -12,14 +12,13 @@ body {
 
 .container {
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
 }
 .container__header {
   height: 2rem;
 }
 .container__body {
   flex: 1;
+  min-height: 80vh;
 }
 
 .content {
