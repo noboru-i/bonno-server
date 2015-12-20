@@ -8,21 +8,34 @@
 
 body {
   font-family: "Helvetica Neue", helvetica, arial;
-  padding: 15px;
 }
 
 .container {
+  min-height: 100vh;
   display: flex;
+  flex-direction: column;
 }
-.container__left {
-  padding: 0 10px;
-  width: 320px;
+.container__header {
+  height: 2rem;
 }
-.container__center {
+.container__body {
   flex: 1;
 }
-.container__right {
+
+.content {
+  display: flex;
+}
+.content__left {
   padding: 0 10px;
+  margin-left: 10px;
+  width: 320px;
+}
+.content__center {
+  flex: 1;
+}
+.content__right {
+  padding: 0 10px;
+  margin-right: 10px;
   width: 340px;
 }
 
