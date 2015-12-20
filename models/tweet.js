@@ -25,11 +25,21 @@ class Tweet {
           console.log('ignore retweet');
           return;
         }
+
         const id_str = tweet.id_str;
         client.get('statuses/oembed', {id: id_str, maxwidth: 320, omit_script: true, hide_media: true, hide_thread: true}, function(error, tweet){
           if(error) {
             throw error;
           }
+
+          // TODO save
+          // key:    bonno
+          // score:  tweet time
+          // member: {id, html}
+
+          // key:    gedatsu
+          // score:  gedatsu time
+          // member: {id, html}
 
           console.log('success statuses/oembed');
           const send_data = {
