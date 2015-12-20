@@ -42,6 +42,10 @@ class Tweet {
 
       stream.on('error', function(error) {
         console.log(error);
+        setTimeout(function() {
+          console.log('retry start_stream');
+          this.start_stream();
+        }, 3000);
       });
     });
   }
