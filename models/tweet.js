@@ -41,7 +41,7 @@ class Tweet {
       });
 
       stream.on('error', function(error) {
-        throw error;
+        console.log(error);
       });
     });
   }
