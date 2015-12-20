@@ -2,3 +2,16 @@ body {
   font-family: "Helvetica Neue", helvetica, arial;
   padding: 15px;
 }
+
+.container {
+  display: flex;
+}
+.container__left {
+  width: 320px;
+}
+.container__center {
+  flex: 1;
+}
+.container__right {
+  width: 320px;
+}
