@@ -46,3 +46,25 @@ body {
 .tweet-list {
   border: solid 1px #eee;
 }
+
+.dialog_background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #000;
+  opacity: 0.5;
+}
+.tutorial-dialog {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin: -100px 0 0 -150px;
+  width: 300px;
+  height: 200px;
+  background-color: #FFF;
+  box-shadow: 6px 6px 6px rgba(0,0,0,0.4);  /* CSS3 */
+  padding: 10px;
+  text-align: center;
+}

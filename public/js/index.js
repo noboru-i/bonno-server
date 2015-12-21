@@ -41,3 +41,8 @@ function create_element(data) {
   div.dataset.html = data.html;
   return div;
 }
+
+document.getElementsByClassName('dialog_background')[0].onclick = function() {
+  this.style.display = 'none';
+  document.getElementsByClassName('tutorial-dialog')[0].style.display = 'none';
+};
