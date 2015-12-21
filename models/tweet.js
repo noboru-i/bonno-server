@@ -18,7 +18,7 @@ class Tweet {
     const io = this.io;
     const client = this.client;
 
-    this.client.stream('statuses/filter', {track: 'javascript'}, function(stream) {
+    this.client.stream('statuses/filter', {track: '#煩悩'}, function(stream) {
       stream.on('data', function(tweet) {
         console.log('received: ' + tweet.id_str);
         if (tweet.retweeted_status) {
