@@ -27,7 +27,9 @@ app.use(express.static(__dirname + '/public/'));
 ws_start(io);
 
 const Tweet = require('./models/tweet.js');
-new Tweet(io).start_stream();
+const tweet = new Tweet(io);
+tweet.start_stream();
+tweet.start_bot();
 
 server.listen(port);
 

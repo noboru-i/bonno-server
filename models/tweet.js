@@ -59,6 +59,43 @@ class Tweet {
       });
     });
   }
+
+  start_bot() {
+    const bot_client = new Twitter({
+      consumer_key: process.env.CONSUMER_KEY,
+      consumer_secret: process.env.CONSUMER_SECRET,
+      access_token_key: process.env.BOT_ACCESS_TOKEN_KEY,
+      access_token_secret: process.env.BOT_ACCESS_TOKEN_SECRET
+    });
+    const messages = [
+      '寿司食べたい',
+      '年末ジャンボが当たりますように',
+      'かのじょほしい',
+      'バスケがしたいです',
+      'デートしたい',
+      '景気がよくなれ！',
+      '志望校に受かれっ！',
+      'いいね欲しい',
+      'ラーメン食べたい',
+      '痩せたい',
+      '家建てたい',
+      '車欲しい',
+      'ニートになりたい',
+      '結婚したい',
+      '彼氏欲しい',
+      'ずっと寝てたい'
+    ];
+
+    setInterval(function(){
+      const index1 = Math.floor(Math.random() * messages.length);
+      const index2 = Math.floor(Math.random() * messages.length);
+      bot_client.post('statuses/update', {status: messages[index1] + ' ' + messages[index2] + ' #煩悩'},  function(error){
+        if (error) {
+          console.log(error);
+        }
+      });
+    }, 10000);
+  }
 }
 
 module.exports = Tweet;
