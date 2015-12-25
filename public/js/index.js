@@ -33,6 +33,25 @@ socket.on('gedatsu', function(data){
   }, 1000);
 });
 
+socket.on('init_bonnos', function(data){
+  console.log('init_bonnos');
+  data = JSON.parse(data);
+  data.forEach(function(bonno){
+    var div = create_element(bonno);
+    document.getElementById('bonno_tweet').appendChild(div);
+  });
+  if (typeof twttr !== 'undefined') {
+    twttr.widgets.load();
+  } else {
+    var id = setInterval(function(){
+      if (typeof twttr !== 'undefined') {
+        twttr.widgets.load();
+        clearInterval(id);
+      }
+    }, 100);
+  }
+});
+
 function create_element(data) {
   var div = document.createElement('div');
   div.id = 'hoge_' + data.id;

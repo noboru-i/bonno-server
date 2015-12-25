@@ -1,6 +1,9 @@
 'use strict';
 
-var Twitter = require('twitter');
+const Twitter = require('twitter');
+
+const redis_config = require('../config/redis.js').redis_config;
+const redis = require('redis');
 
 class Tweet {
 
@@ -12,11 +15,15 @@ class Tweet {
       access_token_key: process.env.ACCESS_TOKEN_KEY,
       access_token_secret: process.env.ACCESS_TOKEN_SECRET
     });
+    this.redis_client = redis.createClient(redis_config['port'],
+      redis_config['host'],
+      {auth_pass: redis_config['password'], return_buffers: true});
   }
 
   start_stream() {
     const io = this.io;
     const client = this.client;
+    const redis_client = this.redis_client;
 
     this.client.stream('statuses/filter', {track: '#煩悩'}, function(stream) {
       stream.on('data', function(tweet) {
@@ -32,11 +39,6 @@ class Tweet {
             throw error;
           }
 
-          // TODO save
-          // key:    bonno
-          // score:  tweet time
-          // member: {id, html}
-
           // key:    gedatsu
           // score:  gedatsu time
           // member: {id, html}
@@ -46,6 +48,13 @@ class Tweet {
             id: id_str,
             html: tweet.html
           };
+
+          const args = [ 'bonno', id_str, JSON.stringify(send_data) ];
+          console.log(JSON.stringify(args));
+          redis_client.zadd(args, function (err) {
+            if (err) throw err;
+          });
+
           io.emit('add_tweet', JSON.stringify(send_data));
         });
       });
