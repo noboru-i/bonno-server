@@ -39,7 +39,7 @@ setInterval(function(){
     if (err) throw err;
 
     if (count > 10) {
-      redis_client.zremrangebyrank('bonno', -1, -1, function (err) {
+      redis_client.zremrangebyrank('bonno', 0, 0, function (err) {
         if (err) throw err;
       });
 

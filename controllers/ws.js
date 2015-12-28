@@ -17,7 +17,7 @@ exports.ws_start = function (io) {
     });
 
     socket.on('kane-wo-tsuita', function() {
-      redis_client.zremrangebyrank('bonno', -1, -1, function (err) {
+      redis_client.zremrangebyrank('bonno', 0, 0, function (err) {
         if (err) throw err;
       });
 
