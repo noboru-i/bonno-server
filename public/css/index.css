@@ -68,3 +68,21 @@ body {
   padding: 10px;
   text-align: center;
 }
+
+.button {
+  color: #fff;
+  background-color: #26a69a;
+  border-radius: 2px;
+  box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
+}
+.button:hover {
+  background-color: #2bbbad;
+}
+
+.kane-wo-tsuku-button {
+  width: 80%;
+  height: 200px;
+  margin: 20px auto 0;
+  display: block;
+  font-size: 4rem;
+}

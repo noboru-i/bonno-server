@@ -33,14 +33,19 @@ tweet.start_bot();
 
 server.listen(port);
 
-// TODO dummy gedatsu
 setInterval(function(){
   const redis_client = redisApp.createClient(redis_config['port'],
     redis_config['host'],
     {auth_pass: redis_config['password'], return_buffers: true});
-  redis_client.zremrangebyrank('bonno', -1, -1, function (err) {
+  redis_client.zcard('bonno', function(err, count) {
     if (err) throw err;
-  });
 
-  io.emit('gedatsu', JSON.stringify({}));
-}, 5000);
+    if (count > 10) {
+      redis_client.zremrangebyrank('bonno', -1, -1, function (err) {
+        if (err) throw err;
+      });
+
+      io.emit('gedatsu', JSON.stringify({}));
+    }
+  });
+}, 1000);

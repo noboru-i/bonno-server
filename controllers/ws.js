@@ -9,7 +9,7 @@ exports.ws_start = function (io) {
   io.on('connection', function(socket){
     console.log('websocket connection open');
 
-    redis_client.zrevrangebyscore('bonno', '+inf', '-inf', function (err, response) {
+    redis_client.zrangebyscore('bonno', '-inf', '+inf', function (err, response) {
       if (err) throw err;
       console.log('start forEach');
       const bonnos = [];
@@ -21,6 +21,16 @@ exports.ws_start = function (io) {
       socket.emit('init_bonnos', JSON.stringify(bonnos));
     });
 
+    socket.on('kane-wo-tsuita', function() {
+      const redis_client = redis.createClient(redis_config['port'],
+        redis_config['host'],
+        {auth_pass: redis_config['password'], return_buffers: true});
+      redis_client.zremrangebyrank('bonno', -1, -1, function (err) {
+        if (err) throw err;
+      });
+
+      io.emit('gedatsu', JSON.stringify({}));
+    });
 
     socket.on('disconnect', function(){
       console.log('websocket connection close');
