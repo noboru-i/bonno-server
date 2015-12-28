@@ -3,6 +3,7 @@ const http = require('http');
 const express = require('express');
 const ws_start = require('./controllers/ws').ws_start;
 const redis_config = require('./config/redis.js').redis_config;
+const redis_client = require('./db/redis-client').redis_client;
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -34,9 +35,6 @@ tweet.start_bot();
 server.listen(port);
 
 setInterval(function(){
-  const redis_client = redisApp.createClient(redis_config['port'],
-    redis_config['host'],
-    {auth_pass: redis_config['password'], return_buffers: true});
   redis_client.zcard('bonno', function(err, count) {
     if (err) throw err;
 

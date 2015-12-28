@@ -2,8 +2,7 @@
 
 const Twitter = require('twitter');
 
-const redis_config = require('../config/redis.js').redis_config;
-const redis = require('redis');
+const redis_client = require('../db/redis-client').redis_client;
 
 class Tweet {
 
@@ -15,15 +14,11 @@ class Tweet {
       access_token_key: process.env.ACCESS_TOKEN_KEY,
       access_token_secret: process.env.ACCESS_TOKEN_SECRET
     });
-    this.redis_client = redis.createClient(redis_config['port'],
-      redis_config['host'],
-      {auth_pass: redis_config['password'], return_buffers: true});
   }
 
   start_stream() {
     const io = this.io;
     const client = this.client;
-    const redis_client = this.redis_client;
 
     this.client.stream('statuses/filter', {track: '#煩悩'}, function(stream) {
       stream.on('data', function(tweet) {
