@@ -11,9 +11,10 @@ socket.on('add_tweet', function (data) {
 });
 
 socket.on('gedatsu', function(data){
+  console.log('gedatsu');
   data = JSON.parse(data);
+  console.log(data);
 
-  // TODO get from data.id
   var elm = document.getElementById('bonno_tweet').firstChild;
   if (!elm) {
     return;
