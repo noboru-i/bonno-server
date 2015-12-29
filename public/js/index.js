@@ -67,5 +67,5 @@ document.getElementsByClassName('dialog_background')[0].onclick = function() {
 };
 
 document.getElementById('kane-wo-tsuku').onclick = function() {
-  socket.emit('kane-wo-tsuita');
+  socket.emit('kane-wo-tsuku');
 };

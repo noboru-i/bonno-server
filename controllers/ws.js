@@ -16,6 +16,10 @@ exports.ws_start = function (io) {
       socket.emit('init_bonnos', JSON.stringify(bonnos));
     });
 
+    socket.on('kane-wo-tsuku', function() {
+      io.emit('kane-wo-tsuke');
+    });
+
     socket.on('kane-wo-tsuita', function() {
       redis_client.zremrangebyrank('bonno', 0, 0, function (err) {
         if (err) throw err;

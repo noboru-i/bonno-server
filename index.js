@@ -39,11 +39,7 @@ setInterval(function(){
     if (err) throw err;
 
     if (count > 10) {
-      redis_client.zremrangebyrank('bonno', 0, 0, function (err) {
-        if (err) throw err;
-      });
-
-      io.emit('gedatsu', JSON.stringify({}));
+      io.emit('kane-wo-tsuke');
     }
   });
 }, 1000);
