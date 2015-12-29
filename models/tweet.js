@@ -93,7 +93,8 @@ class Tweet {
     setInterval(function(){
       const index1 = Math.floor(Math.random() * messages.length);
       const index2 = Math.floor(Math.random() * messages.length);
-      bot_client.post('statuses/update', {status: messages[index1] + ' ' + messages[index2] + ' #煩悩'},  function(error){
+      const index3 = Math.floor(Math.random() * messages.length);
+      bot_client.post('statuses/update', {status: '#煩悩' + messages[index1] + ' ' + messages[index2] + ' ' + messages[index3]},  function(error){
         if (error) {
           console.log(error);
         }
