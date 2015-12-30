@@ -99,7 +99,7 @@ class Tweet {
           console.log(error);
         }
       });
-    }, 30000);
+    }, 120000);
   }
 }
 
