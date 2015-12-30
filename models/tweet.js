@@ -91,15 +91,21 @@ class Tweet {
     ];
 
     setInterval(function(){
-      const index1 = Math.floor(Math.random() * messages.length);
-      const index2 = Math.floor(Math.random() * messages.length);
-      const index3 = Math.floor(Math.random() * messages.length);
-      bot_client.post('statuses/update', {status: '#煩悩' + ' ' + messages[index1] + ' ' + messages[index2] + ' ' + messages[index3]},  function(error){
-        if (error) {
-          console.log(error);
+      redis_client.zcard('bonno', function(err, count) {
+        if (err) throw err;
+
+        if (count < 3) {
+          const index1 = Math.floor(Math.random() * messages.length);
+          const index2 = Math.floor(Math.random() * messages.length);
+          const index3 = Math.floor(Math.random() * messages.length);
+          bot_client.post('statuses/update', {status: '#煩悩' + ' ' + messages[index1] + ' ' + messages[index2] + ' ' + messages[index3]},  function(error){
+            if (error) {
+              console.log(error);
+            }
+          });
         }
       });
-    }, 120000);
+    }, 2 * 60 * 1000);
   }
 }
 
