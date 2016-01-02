@@ -26,6 +26,7 @@ class Tweet {
     const io = this.io;
     const client = this.client;
     const bot_client = this.bot_client;
+    const start_stream = this.start_stream;
 
     this.client.stream('statuses/filter', {track: '煩悩'}, function(stream) {
       stream.on('data', function(tweet) {
@@ -72,7 +73,7 @@ class Tweet {
         console.log(error);
         setTimeout(function() {
           console.log('retry start_stream');
-          this.start_stream();
+          start_stream();
         }, 3000);
       });
     });
