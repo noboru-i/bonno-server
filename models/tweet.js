@@ -14,19 +14,33 @@ class Tweet {
       access_token_key: process.env.ACCESS_TOKEN_KEY,
       access_token_secret: process.env.ACCESS_TOKEN_SECRET
     });
+    this.bot_client = new Twitter({
+      consumer_key: process.env.CONSUMER_KEY,
+      consumer_secret: process.env.CONSUMER_SECRET,
+      access_token_key: process.env.BOT_ACCESS_TOKEN_KEY,
+      access_token_secret: process.env.BOT_ACCESS_TOKEN_SECRET
+    });
   }
 
   start_stream() {
     const io = this.io;
     const client = this.client;
+    const bot_client = this.bot_client;
 
     this.client.stream('statuses/filter', {track: '煩悩'}, function(stream) {
       stream.on('data', function(tweet) {
+        console.log(JSON.stringify(tweet));
         console.log('received: ' + tweet.id_str);
-        if (tweet.retweeted_status) {
+        if (tweet.retweeted_status || tweet.quoted_status) {
           console.log('ignore retweet');
           return;
         }
+
+        bot_client.post('statuses/update', {status: '登録されました http://www.bonno.xyz/ ' + 'https://twitter.com/' + tweet.screen_name + '/status/' + tweet.id_str},  function(error, tweet, response){
+          console.log('statuses/update complete');
+          console.log(tweet);  // Tweet body.
+          console.log(response);  // Raw response object.
+        });
 
         const id_str = tweet.id_str;
         client.get('statuses/oembed', {id: id_str, maxwidth: 320, omit_script: true, hide_media: true, hide_thread: true}, function(error, tweet){
@@ -65,12 +79,6 @@ class Tweet {
   }
 
   start_bot() {
-    const bot_client = new Twitter({
-      consumer_key: process.env.CONSUMER_KEY,
-      consumer_secret: process.env.CONSUMER_SECRET,
-      access_token_key: process.env.BOT_ACCESS_TOKEN_KEY,
-      access_token_secret: process.env.BOT_ACCESS_TOKEN_SECRET
-    });
     const messages = [
       '寿司食べたい',
       '年末ジャンボが当たりますように',
@@ -98,7 +106,7 @@ class Tweet {
           const index1 = Math.floor(Math.random() * messages.length);
           const index2 = Math.floor(Math.random() * messages.length);
           const index3 = Math.floor(Math.random() * messages.length);
-          bot_client.post('statuses/update', {status: '#煩悩' + ' ' + messages[index1] + ' ' + messages[index2] + ' ' + messages[index3]},  function(error){
+          this.bot_client.post('statuses/update', {status: '#煩悩' + ' ' + messages[index1] + ' ' + messages[index2] + ' ' + messages[index3]},  function(error){
             if (error) {
               console.log(error);
             }
